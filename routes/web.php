@@ -18,3 +18,8 @@ Route::get('/', function () {
 Route::get('/testVue', function () {
     return view('vue.testvue');
 });
+
+Route::get('/testVue/{any}', function () {
+    return view('vue.testvue');
+})->where('any','.*');
+
