@@ -10,7 +10,6 @@
   }
 
   .el-header, .el-footer {
-    background-color: #F0F0F0;
     color: #333;
     text-align: center;
     line-height: 60px;
@@ -49,7 +48,13 @@
 
 /*项目头部样式 start*/
 .header {
+  background-color: #FFFFFF;
   display: flex;
   justify-content: center;
 }
+
 /*项目头部样式 end*/
+.footer{
+  background-color: #343A40;
+  color: #ffffff;
+}

@@ -98303,6 +98303,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -98322,6 +98323,8 @@ var render = function() {
     "div",
     { staticClass: "header" },
     [
+      _c("img", { attrs: { src: "" } }),
+      _vm._v(" "),
       _c(
         "el-menu",
         {
@@ -98420,7 +98423,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    Footer\n")])
+  return _c("div", { staticClass: "footer" }, [
+    _vm._v(
+      "\n    隐私政策 服务协议 Copyright © 2012-2018 深圳玖盟互动网络有限公司 版权所有 保留一切权利\n"
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -1,5 +1,6 @@
 <template>
     <div class="header">
+        <img src="" />
         <el-menu :default-active="this.$route.name" class="el-menu-demo" mode="horizontal" :router=true >
             <el-menu-item index="handle">
                 处理中心
