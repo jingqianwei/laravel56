@@ -33,6 +33,7 @@ class ProcessPodcast implements ShouldQueue
      */
     public function handle()
     {
+        //1s = 1000000000 nanoseconds
         time_nanosleep(0,500000000);
         \Log::info('信息为：'.$this->data);
     }
