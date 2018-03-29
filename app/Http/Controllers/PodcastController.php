@@ -17,7 +17,7 @@ class PodcastController extends Controller
     {
         //ProcessPodcast::dispatch()->onQueue('pod');
 
-        for($i = 0; $i < 100; $i ++) {
+        for($i = 0; $i < 100; $i++) {
             Queue::push(new ProcessPodcast("哈哈哈".$i));
         }
     }
