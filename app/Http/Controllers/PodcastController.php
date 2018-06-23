@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Queue;
 use App\Jobs\ProcessPodcast;
-
+use Illuminate\Http\Request;
 
 class PodcastController extends Controller
 {
@@ -20,5 +20,25 @@ class PodcastController extends Controller
         for($i = 0; $i < 100; $i++) {
             Queue::push(new ProcessPodcast("哈哈哈".$i));
         }
+    }
+
+    /**
+     * 测试1
+     * @param Request $request
+     * @return string
+     */
+    public function test1(Request $request)
+    {
+        return view('test');#在你的视图文件夹创建test.blade.php
+    }
+
+    /**
+     * 测试2
+     * @param Request $request
+     * @return string
+     */
+    public function test2(Request $request)
+    {
+        return 'Hello World2:' . $request->get('name');
     }
 }
