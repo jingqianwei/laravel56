@@ -1,0 +1,56 @@
+sudo apt-get install php7.2-dev libpcre3-dev gcc make php7.2-mysql
+
+sudo ./install --phpize /usr/local/php/bin/phpize --php-config /usr/local/php/bin/php-config
+
+server {
+    listen 80;
+    server_name dev.phalcon.com;
+    access_log /data/wwwlogs/access_nginx.log combined;
+    root /home/chinwe/workspace/phalcon;
+    index index.html index.htm index.php;
+    #error_page 404 /404.html;
+    #error_page 502 /502.html;
+    location /nginx_status {
+      stub_status on;
+      access_log off;
+      allow 127.0.0.1;
+      deny all;
+    }
+    location ~ [^/]\.php(/|$) {
+      #fastcgi_pass remote_php_ip:9000;
+      fastcgi_pass unix:/dev/shm/php-cgi.sock;
+      fastcgi_index index.php;
+      include fastcgi.conf;
+    }
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|flv|mp4|ico)$ {
+      expires 30d;
+      access_log off;
+    }
+    location ~ .*\.(js|css)?$ {
+      expires 7d;
+      access_log off;
+    }
+    location ~ /\.ht {
+      deny all;
+    }
+    location /{
+    	rewrite ^$ public/ last;
+    	rewrite ^(.*)$ /public/index.php?_url=$1 last;#zhongxieguize
+    }
+  }
+
+
+  PATH="/home/chinwe/download/phalcon-devtools:/usr/local/nginx/sbin:/usr/local/php/bin:/usr/local/openssl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+
+
+ln -s /home/chinwe/download/phalcon-devtools/phalcon.php /usr/bin/phalcon
+
+alias phalcon=/home/chinwe/download/phalcon-devtools/phalcon.php  
+
+/usr/local/mongodb/bin/mongod --dbpath /var/lib/mongodb/ --logpath /var/log/mongodb/mongodb.log --logappend  &
+
+./mongod --dbpath /var/lib/mongodb/ --logpath /var/log/mongodb/mongodb.log --logappend &
+
+/usr/local/mongodb/bin/mongod --dbpath /data/db --fork --port 27017 --logpath=/usr/local/mongodb/log/work.log --logappend --auth
+
+gedit /etc/rc0.d/rc.local
