@@ -1,7 +1,7 @@
 <?php
 
-$http = new swoole_http_server('127.0.0.1', 9501);
-var_dump($http);exit;
+$http = new \swoole_http_server('127.0.0.1', 9501);
+
 $http->set([
     'worker_num' => 8,
     'max_request' => 5000,

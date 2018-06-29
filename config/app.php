@@ -160,6 +160,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * swoole插件
+         */
+        SwooleTW\Http\LaravelServiceProvider::class,
+
     ],
 
     /*

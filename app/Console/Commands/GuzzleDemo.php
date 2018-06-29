@@ -6,7 +6,7 @@
  * Time: 11:12
  */
 
-namespace App\Console\Command;
+namespace App\Console\Commands;
 
 use App\Services\RequestClient;
 use GuzzleHttp\Exception\ClientException;
