@@ -55,9 +55,8 @@ class BackupDatabase extends Command
         try {
             $this->process->mustRun();
             $this->info('The backup has been proceed successfully.');
-        } catch (ProcessFailedException $exception) {
-            dd($exception->getMessage());
-            $this->error('The backup process has been failed.');
+        } catch (ProcessFailedException $e) {
+            $this->error('The backup process has been failed, reason' . $e->getMessage());
         }
     }
 }

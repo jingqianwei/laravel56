@@ -34,6 +34,9 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         //每一分钟执行一次
         $schedule->command('time-task:test')->everyMinute();
+
+        //每周一的 23:00执行计划任务
+        $schedule->command('db:backup')->mondays()->at('23:00');
     }
 
     /**
