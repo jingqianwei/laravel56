@@ -23,10 +23,13 @@ class PodcastController extends Controller
 
     public function exec()
     {
-        $logs = '';
-        //获取本地日志
+        //获取本地日志内容
         $command = 'cat ' . storage_path('logs/laravel.log') . ' | grep 定时任务 | head -1000';
         exec($command, $logs);
+
+        $commands = 'cd ' . storage_path('backups') . '&& tar -vczf sql.tgz backup_20180821.sql';
+        exec($commands);
+
         dd($logs);
     }
 }
