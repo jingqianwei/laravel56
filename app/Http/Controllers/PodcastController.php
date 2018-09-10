@@ -27,8 +27,14 @@ class PodcastController extends Controller
         $command = 'cat ' . storage_path('logs/laravel.log') . ' | grep 定时任务 | head -1000';
         exec($command, $logs);
 
-        $commands = 'cd ' . storage_path('backups') . '&& tar -vczf sql.tgz backup_20180821.sql';
-        exec($commands);
+        foreach (\File::files(storage_path('backups')) as $file) {
+            // 解压
+            // $command = 'tar -xzf ' . explode('.', $file)[0] . '.dat.gz ' . $file;
+            // 压缩
+            $commands = 'cd ' . storage_path('backups') . ' && tar -vczf ' . basename(explode('.', $file)[0]) . '.sql.tgz ' . basename($file);
+            exec($commands);
+            file_put_contents(storage_path('backups/' . time() . '.MD5'), md5($file), FILE_APPEND);
+        }
 
         dd($logs);
     }
