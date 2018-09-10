@@ -27,6 +27,7 @@ class PodcastController extends Controller
         $command = 'cat ' . storage_path('logs/laravel.log') . ' | grep 定时任务 | head -1000';
         exec($command, $logs);
 
+        //循环压缩文件夹下的所有文件
         foreach (\File::files(storage_path('backups')) as $file) {
             // 解压
             // $command = 'tar -xzf ' . explode('.', $file)[0] . '.dat.gz ' . $file;
@@ -38,6 +39,7 @@ class PodcastController extends Controller
             sleep(2);
         }
 
+        //打印日志内容
         dd($logs);
     }
 }
