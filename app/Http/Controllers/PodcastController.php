@@ -30,7 +30,7 @@ class PodcastController extends Controller
         //循环压缩文件夹下的所有文件
         foreach (\File::files(storage_path('backups')) as $file) {
             // 解压
-            // $command = 'tar -xzf ' . explode('.', $file)[0] . '.dat.gz ' . $file;
+            // $command = 'tar -vczf ' . explode('.', $file)[0] . '.sql.tgz ' . $file;
             // 压缩
             $commands = 'cd ' . storage_path('backups') . ' && tar -vczf ' . basename(explode('.', $file)[0]) . '.sql.tgz ' . basename($file);
             exec($commands);
