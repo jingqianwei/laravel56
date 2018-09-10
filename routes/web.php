@@ -24,3 +24,5 @@ Route::get('/query', 'PodcastController@store');
 Route::get('/testVue/{any}', function () {
     return view('vue.testvue');
 })->where('any','.*');
+
+Route::get('/exec', 'PodcastController@exec');

@@ -21,8 +21,9 @@ class PodcastController extends Controller
         }
     }
 
-    public function exec($logs = '')
+    public function exec()
     {
+        $logs = '';
         //获取本地日志
         $command = 'cat ' . storage_path('logs/laravel.log') . ' | grep swoole | head -1000';
 
