@@ -2,10 +2,6 @@
 
 namespace App\Console;
 
-use App\Console\Commands\GetMessage;
-use App\Console\Commands\GuzzleDemo;
-use App\Console\Commands\Swoole;
-use App\Console\Commands\TimeTask;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -17,9 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        GuzzleDemo::class,
-        GetMessage::class,
-        Swoole::class,
+
     ];
 
     /**
