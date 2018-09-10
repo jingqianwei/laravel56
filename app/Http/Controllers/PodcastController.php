@@ -25,10 +25,8 @@ class PodcastController extends Controller
     {
         $logs = '';
         //获取本地日志
-        $command = 'cat ' . storage_path('logs/laravel.log') . ' | grep swoole | head -1000';
-
-        explode($command, $logs);
-
+        $command = 'cat ' . storage_path('logs/laravel.log') . ' | grep 定时任务 | head -1000';
+        exec($command, $logs);
         dd($logs);
     }
 }
