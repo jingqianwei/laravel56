@@ -34,6 +34,8 @@ class PodcastController extends Controller
             $commands = 'cd ' . storage_path('backups') . ' && tar -vczf ' . basename(explode('.', $file)[0]) . '.sql.tgz ' . basename($file);
             exec($commands);
             file_put_contents(storage_path('backups/' . time() . '.MD5'), md5($file), FILE_APPEND);
+            //执行速度太快，做一个延时，来看执行效果
+            sleep(2);
         }
 
         dd($logs);
