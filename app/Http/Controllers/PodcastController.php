@@ -21,6 +21,11 @@ class PodcastController extends Controller
         }
     }
 
+    /**
+     * @Describe: exec函数用法
+     * @Author: chinwe.jing
+     * @Data: 2018/9/11 10:59
+     */
     public function exec()
     {
         //获取本地日志内容
