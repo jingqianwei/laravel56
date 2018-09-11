@@ -25,4 +25,5 @@ Route::get('/testVue/{any}', function () {
     return view('vue.testvue');
 })->where('any','.*');
 
+//测试
 Route::get('/exec', 'PodcastController@exec');
