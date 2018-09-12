@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\UserServices;
 use Queue;
 use App\Jobs\ProcessPodcast;
 
 class PodcastController extends Controller
 {
+    protected $userServices;
+
+    public function __construct(UserServices $userServices)
+    {
+        $this->userServices = $userServices;
+    }
+
     /**
      * 存储一个新的播客节目。
      *
@@ -46,5 +54,10 @@ class PodcastController extends Controller
 
         //打印日志内容
         dd($logs);
+    }
+
+    public function getUserData()
+    {
+        return $this->userServices->getUserData();
     }
 }
