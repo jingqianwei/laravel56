@@ -3,7 +3,9 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -31,8 +33,9 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $exception
+     * @param  \Exception $exception
      * @return void
+     * @throws Exception
      */
     public function report(Exception $exception)
     {
@@ -48,6 +51,36 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        if ($exception instanceof ModelNotFoundException) {
+            $exception = new NotFoundHttpException($exception->getMessage(), $exception);
+        }
+
+        $debug = config('app.debug', false);  // 判断debug是否开启
+        if (empty($debug)) {  // 如果debug关闭
+            $result = method_exists($exception, 'getStatusCode');
+            if (!empty($result)) {
+                // 404友情提示
+                $statusCode = $exception->getStatusCode();
+                if ($statusCode == 404) {
+                    return response()->view('error.404', [
+                        'info' => '抱歉,指定的页面不存在.',
+                        'url' => '/',
+                        'code' => 404,
+                        'msg' => 'Sorry, page not found.'
+                    ]);
+                }
+            } else {
+                // 出现错误提示
+                return response()->view('error.503', [
+                    'info' => '抱歉,好像出错了.',
+                    'url'  => '/',
+                    'code' => 503,
+                    'msg'  => 'Error,It have been wrong.'
+                ]);
+            }
+        } else {
+            // 如果开启debug模式
+            return parent::render($request, $exception);
+        }
     }
 }

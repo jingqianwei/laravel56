@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.67.10",
+            "version": "3.67.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "e6571970d7f28da4c736eeeb0d01c0a5fdaf51e1"
+                "reference": "2fcd5b49bda2dc79f7b1a70677733194af1548e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e6571970d7f28da4c736eeeb0d01c0a5fdaf51e1",
-                "reference": "e6571970d7f28da4c736eeeb0d01c0a5fdaf51e1",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2fcd5b49bda2dc79f7b1a70677733194af1548e3",
+                "reference": "2fcd5b49bda2dc79f7b1a70677733194af1548e3",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-09-11T18:17:34+00:00"
+            "time": "2018-09-12T20:11:40+00:00"
         },
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -3609,16 +3609,16 @@
         },
         {
             "name": "vladimir-yuldashev/laravel-queue-rabbitmq",
-            "version": "v7.1.0",
+            "version": "v7.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vyuldashev/laravel-queue-rabbitmq.git",
-                "reference": "bc5cc254140223627eb69ab1de7053fd00a63eae"
+                "reference": "c3ffcea264d8ccdacf51344e1e134c39ed69326a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vyuldashev/laravel-queue-rabbitmq/zipball/bc5cc254140223627eb69ab1de7053fd00a63eae",
-                "reference": "bc5cc254140223627eb69ab1de7053fd00a63eae",
+                "url": "https://api.github.com/repos/vyuldashev/laravel-queue-rabbitmq/zipball/c3ffcea264d8ccdacf51344e1e134c39ed69326a",
+                "reference": "c3ffcea264d8ccdacf51344e1e134c39ed69326a",
                 "shasum": ""
             },
             "require": {
@@ -3661,7 +3661,7 @@
                 }
             ],
             "description": "RabbitMQ driver for Laravel Queue",
-            "time": "2018-09-04T14:05:05+00:00"
+            "time": "2018-09-11T22:05:43+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
