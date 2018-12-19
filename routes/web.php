@@ -16,13 +16,13 @@ Route::get('/', function () {
 });
 
 Route::get('/testVue', function () {
-    return view('vue.testvue');
+    return view('vue.test-vue');
 });
 
 Route::get('/query', 'PodcastController@store');
 
 Route::get('/testVue/{any}', function () {
-    return view('vue.testvue');
+    return view('vue.test-vue');
 })->where('any','.*');
 
 //测试
@@ -30,3 +30,6 @@ Route::get('/exec', 'PodcastController@exec');
 
 // 测试Supervisor的使用
 Route::get('/send-file', 'PodcastController@sendFile');
+
+// 测试发邮件
+Route::get('/send-mail', 'PodcastController@sendMail');

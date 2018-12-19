@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmail;
 use App\Jobs\SendFile;
 use App\Services\UserServices;
+use Log;
 use Queue;
 use App\Jobs\ProcessPodcast;
 
@@ -79,5 +81,23 @@ class PodcastController extends Controller
         $this->dispatch((new SendFile())->onQueue('send-file'));
         $this->dispatch((new SendFile())->onQueue('send-file'));
         $this->dispatch((new SendFile())->onQueue('send-file'));
+    }
+
+    public function sendMail()
+    {
+        if (config('app.name')) {
+            $errName = config('app.name') . '_' . config('app.env');
+        } else {
+            $errName = config('app.env');
+        }
+
+        $parameter = [
+            'subject' => 'System Error--->' . $errName,
+            'content' => 'test',
+        ];
+
+        Log::info('准备推送邮件！');
+        $this->dispatch((new SendEmail('chinwe.jing@etocrm.com', $parameter))->onQueue('send-mail'));
+        Log::info('推送邮件结束！');
     }
 }
