@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use DateTime;
+use DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,10 +16,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // 迁移生成的默认字符串长度
+        Schema::defaultStringLength(191);
         //以后执行数据库操作，都会把sql语句记录下来
-        \DB::listen(function($sql) {
+        DB::listen(function($sql) {
             foreach ($sql->bindings as $i => $binding) {
-                if ($binding instanceof \DateTime) {
+                if ($binding instanceof DateTime) {
                     $sql->bindings[$i] = $binding->format('\'Y-m-d H:i:s\'');
                 } else {
                     if (is_string($binding)) {
@@ -40,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         //监听sql
-        \DB::listen(function($query) {
+        DB::listen(function($query) {
             $bindings = $query->bindings;
             $sql = $query->sql;
             foreach ($bindings as $replace){
