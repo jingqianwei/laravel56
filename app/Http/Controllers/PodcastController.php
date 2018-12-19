@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendFile;
 use App\Services\UserServices;
 use Queue;
 use App\Jobs\ProcessPodcast;
@@ -59,5 +60,24 @@ class PodcastController extends Controller
     public function getUserData()
     {
         return $this->userServices->getUserData();
+    }
+
+    public function sendFile()
+    {
+        $this->dispatch((new SendFile())->onQueue('send-file'));
+        $this->dispatch((new SendFile())->onQueue('send-file'));
+        $this->dispatch((new SendFile())->onQueue('send-file'));
+        $this->dispatch((new SendFile())->onQueue('send-file'));
+        $this->dispatch((new SendFile())->onQueue('send-file'));
+        $this->dispatch((new SendFile())->onQueue('send-file'));
+        $this->dispatch((new SendFile())->onQueue('send-file'));
+        $this->dispatch((new SendFile())->onQueue('send-file'));
+        $this->dispatch((new SendFile())->onQueue('send-file'));
+        $this->dispatch((new SendFile())->onQueue('send-file'));
+        $this->dispatch((new SendFile())->onQueue('send-file'));
+        $this->dispatch((new SendFile())->onQueue('send-file'));
+        $this->dispatch((new SendFile())->onQueue('send-file'));
+        $this->dispatch((new SendFile())->onQueue('send-file'));
+        $this->dispatch((new SendFile())->onQueue('send-file'));
     }
 }

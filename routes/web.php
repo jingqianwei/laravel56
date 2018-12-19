@@ -27,3 +27,6 @@ Route::get('/testVue/{any}', function () {
 
 //测试
 Route::get('/exec', 'PodcastController@exec');
+
+// 测试Supervisor的使用
+Route::get('/exec', 'PodcastController@sendFile');
