@@ -39,6 +39,5 @@ class SendController extends Controller
         $channel->basic_publish($message, $exchange); // 推送消息
         $channel->close();
         $connection->close();
-
     }
 }

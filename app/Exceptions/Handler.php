@@ -3,7 +3,11 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -31,8 +35,9 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $exception
+     * @param  \Exception $exception
      * @return void
+     * @throws Exception
      */
     public function report(Exception $exception)
     {
@@ -44,10 +49,64 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse|\Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        //没找到对应的model
+        if ($exception instanceof ModelNotFoundException) {
+            $exception = new NotFoundHttpException($exception->getMessage(), $exception);
+        }
+
+        // 拦截表单验证异常，修改返回方式
+        if ($exception instanceof ValidationException) {
+            $message = array_values($exception->errors())[0][0];
+
+            return $this->response($message, 422);
+        }
+
+        $debug = config('app.debug', false);  // 判断debug是否开启
+        if (empty($debug)) {  // 如果debug关闭
+            $result = method_exists($exception, 'getStatusCode');
+            if (!empty($result)) {
+                // 404友情提示
+                $statusCode = $exception->getStatusCode();
+                if ($statusCode == 404) {
+                    return response()->view('error.404', [
+                        'info' => '抱歉,指定的页面不存在.',
+                        'url' => '/',
+                        'code' => 404,
+                        'msg' => 'Sorry, page not found.'
+                    ]);
+                }
+            } else {
+                // 出现错误提示
+                return response()->view('error.503', [
+                    'info' => '抱歉,好像出错了.',
+                    'url'  => '/',
+                    'code' => 503,
+                    'msg'  => 'Error,It have been wrong.'
+                ]);
+            }
+        } else {
+            // 如果开启debug模式
+            return parent::render($request, $exception);
+        }
+    }
+
+    /**
+     * 公用返回格式
+     * @param string $message
+     * @param int $code
+     * @return JsonResponse
+     */
+    protected function response(string $message, int $code) :JsonResponse
+    {
+        $response = [
+            'code' => $code,
+            'message' => $message,
+        ];
+
+        return response()->json($response, 200);
     }
 }
